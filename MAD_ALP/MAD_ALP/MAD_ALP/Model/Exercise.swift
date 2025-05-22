@@ -10,6 +10,6 @@ import Foundation
 struct Exercise: Identifiable, Hashable {
     let id = UUID()
     let name: String
-    let image: String
-    
+    let tips: String
+    let fact: [String]
 }
