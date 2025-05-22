@@ -9,7 +9,10 @@ import SwiftUI
 
 struct AddExerciseView: View {
     var body: some View {
-        Text("Add View")
+        VStack {
+            Text("Picked date")
+            Text("[|Image| OlahragaName ^]")
+        }
     }
 }
 

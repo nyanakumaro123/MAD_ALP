@@ -16,6 +16,8 @@ struct HomeView: View {
         
         if calender.isDateInToday(selectedDate) {
             return "TODAY"
+        } else if selectedDate > Date() {
+            return "FUTURE"
         } else {
             return "PAST"
         }
@@ -52,7 +54,13 @@ struct HomeView: View {
                     selectDateButton
                     Spacer()
                 }
+                Spacer()
                 
+                Text("No events scheduled")
+                    .font(.system(size: 24))
+                
+                Spacer()
+                Spacer()
             }
         }
     }
@@ -87,7 +95,7 @@ extension HomeView {
             VStack {
                 DatePicker("Select Date",
                     selection: $selectedDate,
-                    in:...Date(),
+                           //in:...Date(),
                     displayedComponents: .date)
                     .datePickerStyle(GraphicalDatePickerStyle())
                     .padding()

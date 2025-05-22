@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         TabView {
-            // Calendar (Main View)
+            // Calendar
             HomeView()
                 .tabItem {
                     Label("Home", systemImage: "house")
