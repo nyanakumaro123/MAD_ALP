@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TemplateExerciseView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Template Exercise View")
     }
 }
 

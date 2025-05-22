@@ -5,14 +5,12 @@
 //  Created by Student on 22/05/25.
 //
 
-import SwiftUI
+import Foundation
 
-struct Schedule: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-#Preview {
-    Schedule()
+struct Schedule: Identifiable, Hashable {
+    let id = UUID()
+    let title: String
+    let date: Date
+    let time: String // Change this into time format
+    let exercises: [Exercise]
 }

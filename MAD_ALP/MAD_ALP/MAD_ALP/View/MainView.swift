@@ -20,8 +20,14 @@ struct MainView: View {
             AddExerciseView()
                 .tabItem {
                     Label("Add Exercise", systemImage:
-                        "plus.square.dashed")
+                        "plus.square")
                 }//.badge("!")
+            
+            // Template, add exercise
+            TemplateExerciseView()
+                .tabItem {
+                    Label("Template", systemImage: "text.book.closed")
+                }
         }
     }
 }
