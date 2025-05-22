@@ -10,14 +10,17 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         TabView {
-            // Weekly Streak? (Main View)
-            
+            // Calendar (Main View)
+            HomeView()
+                .tabItem {
+                    Label("Home", systemImage: "house")
+                }
             
             // Add exercise
             AddExerciseView()
                 .tabItem {
                     Label("Add Exercise", systemImage:
-                        "plus")
+                        "plus.square.dashed")
                 }//.badge("!")
         }
     }
