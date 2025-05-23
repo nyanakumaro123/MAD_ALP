@@ -9,7 +9,7 @@ import Foundation
 import WatchConnectivity
 //import SwiftData
 
-class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
+class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
     // Watch
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
         
@@ -25,7 +25,7 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
     // Watch
     
     // Init
-    @Published var exercises = [Exercise]()
+    @Published var schedules = [Schedule]()
     var session: WCSession
     
     init(session: WCSession = .default) {

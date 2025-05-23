@@ -11,6 +11,6 @@ struct Schedule: Identifiable, Hashable {
     let id = UUID()
     let title: String
     let date: Date
-    let time: String // Change this into time format
+    let time: DateComponents // Change this into time format
     let exercises: [Exercise]
 }

@@ -12,7 +12,10 @@ struct HomeView: View {
     @State private var showDatePicker: Bool = false
     @State private var selectedDate: Date = Date()
     @State private var isAddExercise = false
+    
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var exerciseViewModel: ExerciseViewModel
+    @EnvironmentObject var scheduleViewModel: ScheduleViewModel
     
     var dateIndicator: String {
         let calender = Calendar.current
@@ -101,6 +104,8 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .environmentObject(ExerciseViewModel())
+        .environmentObject(ScheduleViewModel())
 }
 
 extension HomeView {

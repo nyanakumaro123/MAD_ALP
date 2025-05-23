@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct MAD_ALPApp: App {
+    @StateObject private var exerciseViewModel = ExerciseViewModel()
+    @StateObject private var scheduleViewModel = ScheduleViewModel()
+    
     var body: some Scene {
         WindowGroup {
             MainView()
+                .environmentObject(exerciseViewModel)
+                .environmentObject(scheduleViewModel)
         }
     }
 }
