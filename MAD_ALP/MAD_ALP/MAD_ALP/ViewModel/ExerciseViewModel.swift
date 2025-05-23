@@ -7,9 +7,14 @@
 
 import Foundation
 import WatchConnectivity
-//import SwiftData
+import SwiftData
 
 class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
+    @Published var exercises = [Exercise]()
+    var session: WCSession
+    
+    private let baseDataKey = "hasLoadedBaseExercises"
+    
     // Watch
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
         
@@ -25,9 +30,6 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
     // Watch
     
     // Init
-    @Published var exercises = [Exercise]()
-    var session: WCSession
-    
     init(session: WCSession = .default) {
         // Watch
         self.session = session
@@ -36,6 +38,32 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
         session.delegate = self
         session.activate( )
     }
+    
+    private func loadExercisesIfNeeded() {
+            let defaults = UserDefaults.standard
+            
+            if !defaults.bool(forKey: baseDataKey) {
+                // First launch - load base exercises
+                loadBaseExercises()
+                
+                // Mark base data as loaded so next time it won't load again
+                defaults.set(true, forKey: baseDataKey)
+            }
+//            else {
+//                // Not first launch - optionally load saved exercises or leave empty
+//                loadSavedExercises()
+//            }
+        }
+        
+        private func loadBaseExercises() {
+            let baseExercises = [
+                Exercise(name: "Push Up", tips: ["Keep your back straight", "Lower yourself slowly"]),
+                Exercise(name: "Squat", tips: ["Feet shoulder-width apart", "Keep your knees behind toes"]),
+                Exercise(name: "Plank", tips: ["Keep your core tight", "Don't let your hips sag"])
+            ]
+            
+            exercises = baseExercises
+        }
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         DispatchQueue.main.async {
