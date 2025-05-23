@@ -12,6 +12,7 @@ struct HomeView: View {
     @State private var showDatePicker: Bool = false
     @State private var selectedDate: Date = Date()
     @State private var isAddExercise = false
+    
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var exerciseViewModel: ExerciseViewModel
     @EnvironmentObject var scheduleViewModel: ScheduleViewModel
@@ -66,6 +67,8 @@ struct HomeView: View {
                         Text("No events scheduled")
                             .font(.system(size: 24))
                     }
+                    
+                    
                     Spacer()
                     Spacer()
                 }
@@ -90,8 +93,8 @@ struct HomeView: View {
                 .padding(.trailing, 40)
             }
             .fullScreenCover(isPresented: $isAddExercise) {
-//                AddExerciseView
-//                    .environment(\.modelContext, modelContext)
+                AddExerciseView(title: "", date: selectedDate)
+                    .environment(\.modelContext, modelContext)
             }
             
         }
