@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import SwiftData
+
+//@Model
+struct ExerciseGroup: Identifiable, Hashable {
+    let id = UUID()
+    var name: String
+    var exercises: [Exercise]
+}

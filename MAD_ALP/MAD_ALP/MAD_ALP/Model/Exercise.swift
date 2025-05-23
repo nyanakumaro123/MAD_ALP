@@ -9,7 +9,7 @@ import Foundation
 
 struct Exercise: Identifiable, Hashable {
     let id = UUID()
-    let name: String
-    let tips: [String]
-    //let Images: [String]
+    var name: String
+    var detail: String
+    var image: String
 }

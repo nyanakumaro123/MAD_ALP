@@ -10,10 +10,23 @@ import WatchConnectivity
 import SwiftData
 
 class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
-    @Published var exercises = [Exercise]()
+    @Published var exercises = [ExerciseGroup]()
     var session: WCSession
     
     private let baseDataKey = "hasLoadedBaseExercises"
+    
+    // Init
+    init(session: WCSession = .default) {
+        // Watch
+        self.session = session
+        
+        super.init()
+        session.delegate = self
+        session.activate( )
+        
+        loadBaseExercises()
+        
+    }
     
     // Watch
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
@@ -28,16 +41,6 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
         
     }
     // Watch
-    
-    // Init
-    init(session: WCSession = .default) {
-        // Watch
-        self.session = session
-        
-        super.init()
-        session.delegate = self
-        session.activate( )
-    }
     
     private func loadExercisesIfNeeded() {
             let defaults = UserDefaults.standard
@@ -55,15 +58,13 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
 //            }
         }
         
-        private func loadBaseExercises() {
-            let baseExercises = [
-                Exercise(name: "Push Up", tips: ["Keep your back straight", "Lower yourself slowly"]),
-                Exercise(name: "Squat", tips: ["Feet shoulder-width apart", "Keep your knees behind toes"]),
-                Exercise(name: "Plank", tips: ["Keep your core tight", "Don't let your hips sag"])
-            ]
-            
-            exercises = baseExercises
-        }
+    func loadBaseExercises() {
+        exercises.append(ExerciseGroup(name: "Chess Day", exercises: [Exercise(name: "", detail: "", image: "")]))
+        exercises.append(ExerciseGroup(name: "Leg Day", exercises: [Exercise(name: "", detail: "", image: "")]))
+        exercises.append(ExerciseGroup(name: "Back Day", exercises: [Exercise(name: "", detail: "", image: "")]))
+        exercises.append(ExerciseGroup(name: "Arm Day", exercises: [Exercise(name: "", detail: "", image: "")]))
+        exercises.append(ExerciseGroup(name: "Neck Day", exercises: [Exercise(name: "", detail: "", image: "")]))
+    }
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         DispatchQueue.main.async {

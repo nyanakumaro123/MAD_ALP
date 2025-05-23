@@ -12,5 +12,5 @@ struct Schedule: Identifiable, Hashable {
     let title: String
     let date: Date
     let time: DateComponents // Change this into time format
-    let exercises: [Exercise]
+    let exercises: [ExerciseGroup]
 }
