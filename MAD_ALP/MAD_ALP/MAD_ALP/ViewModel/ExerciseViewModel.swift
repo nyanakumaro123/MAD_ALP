@@ -37,33 +37,36 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
         super.init()
         session.delegate = self
         session.activate( )
+        
+        //loadExercisesIfNeeded()
+        loadBaseExercises()
     }
     
-    private func loadExercisesIfNeeded() {
-            let defaults = UserDefaults.standard
-            
-            if !defaults.bool(forKey: baseDataKey) {
-                // First launch - load base exercises
-                loadBaseExercises()
-                
-                // Mark base data as loaded so next time it won't load again
-                defaults.set(true, forKey: baseDataKey)
-            }
+//    private func loadExercisesIfNeeded() {
+//        let defaults = UserDefaults.standard
+//        
+//        if !defaults.bool(forKey: baseDataKey) {
+//            // First launch - load base exercises
+//            loadBaseExercises()
+//            
+//            // Mark base data as loaded so next time it won't load again
+//            defaults.set(true, forKey: baseDataKey)
+//        }
 //            else {
 //                // Not first launch - optionally load saved exercises or leave empty
 //                loadSavedExercises()
 //            }
-        }
+//    }
         
-        private func loadBaseExercises() {
-            let baseExercises = [
-                Exercise(name: "Push Up", tips: ["Keep your back straight", "Lower yourself slowly"]),
-                Exercise(name: "Squat", tips: ["Feet shoulder-width apart", "Keep your knees behind toes"]),
-                Exercise(name: "Plank", tips: ["Keep your core tight", "Don't let your hips sag"])
-            ]
-            
-            exercises = baseExercises
-        }
+    private func loadBaseExercises() {
+        let baseExercises = [
+            Exercise(name: "Push Up", tips: ["Keep your back straight", "Lower yourself slowly"]),
+            Exercise(name: "Squat", tips: ["Feet shoulder-width apart", "Keep your knees behind toes"]),
+            Exercise(name: "Plank", tips: ["Keep your core tight", "Don't let your hips sag"])
+        ]
+        
+        exercises = baseExercises
+    }
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         DispatchQueue.main.async {

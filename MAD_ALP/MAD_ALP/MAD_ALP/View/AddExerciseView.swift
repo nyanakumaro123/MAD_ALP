@@ -11,8 +11,10 @@ import SwiftData
 struct AddExerciseView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
+    
     @EnvironmentObject var exerciseViewModel: ExerciseViewModel
     @EnvironmentObject var scheduleViewModel: ScheduleViewModel
+    @State private var showingExercisePicker = false
     
     // Data imput value
     @State private var title = ""
@@ -42,29 +44,30 @@ struct AddExerciseView: View {
                     DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
                         .datePickerStyle(CompactDatePickerStyle())
                     
-                    // Sport
-                    VStack {
-                        Picker("Select Exercise", selection: $selectedExercise) {
-                            ForEach(exerciseViewModel.exercises, id: \.self) { exercise in
-                                Text(exercise.name).tag(Optional(exercise))
+                    // Exercise selection
+                    Section() {
+                        Button {
+                            showingExercisePicker = true
+                        } label: {
+                            HStack {
+                                Text("Exercise")
+                                    .foregroundColor(.black)
+                                Spacer()
+                                Text(selectedExercise?.name ?? "Select")
+                                    .foregroundColor(.gray)
                             }
-                        }
-                        .pickerStyle(WheelPickerStyle()) // or .menu, .segmented, etc.
-                        
-                        if let selected = selectedExercise {
-                            Text("Tips for \(selected.name):")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            ForEach(selected.tips, id: \.self) { tip in
-                                Text("• \(tip)")
-                            }
-                        } else {
-                            Text("No exercise selected")
-                                .foregroundColor(.gray)
                         }
                     }
+                    .sheet(isPresented: $showingExercisePicker) {
+                        ExerciseSelectionView(selectedExercise: $selectedExercise)
+                            .environmentObject(exerciseViewModel)
+                    }
                     
+                }
+            }
+            .onAppear {
+                if selectedExercise == nil {
+                    selectedExercise = exerciseViewModel.exercises.first
                 }
             }
             .navigationTitle("Add Schedule")
@@ -72,17 +75,13 @@ struct AddExerciseView: View {
                 dismiss()
             })
             .navigationBarItems(trailing: Button("Save") {
-//                viewModel.addFoodSpot(
-//                    name: name,
-//                    location: location,
-//                    description: description,
-//                    category: category,
-//                    visited: visited,
-//                    rating: rating,
-//                    userID: authViewModel.user?.uid,
-//                    context: modelContext
-//                )
-                dismiss()
+//                scheduleViewModel.addSchedule(
+//                    title: title,
+//                    date: selectedDate,
+//                    time: <#T##Date#>,
+//                    exercises: <#T##[Exercise]#>,
+//                    context: <#T##ModelContext#>)
+//                dismiss()
             })
         }
     }
@@ -92,5 +91,6 @@ struct AddExerciseView: View {
     AddExerciseView()
         .environmentObject(ExerciseViewModel())
         .environmentObject(ScheduleViewModel())
+        .modelContainer(for: Exercise.self, inMemory: true)
 //    AddExerciseView(title: "Leg Day", date: ISO8601DateFormatter().date(from: "2021-04-16T00:00:00Z")!)
 }

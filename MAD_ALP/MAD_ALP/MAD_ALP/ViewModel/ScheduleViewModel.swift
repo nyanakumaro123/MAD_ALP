@@ -7,6 +7,7 @@
 
 import Foundation
 import WatchConnectivity
+import SwiftData
 //import SwiftData
 
 class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
@@ -45,5 +46,15 @@ class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
     
-    
+    func addSchedule(title: String, date: Date, time: Date, exercises: [Exercise], context: ModelContext) {
+        let newSchedule = Schedule(
+            title: title,
+            date: date,
+            time: time,
+            exercises: exercises
+        )
+        
+        context.insert(newSchedule)
+        try? context.save()
+    }
 }

@@ -66,11 +66,6 @@
 			path = "MAD_ALP-Watch Watch AppTests";
 			sourceTree = "<group>";
 		};
-		3F117E162DE01529000EC351 /* MAD_ALP-Watch Watch AppUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "MAD_ALP-Watch Watch AppUITests";
-			sourceTree = "<group>";
-		};
 		3FB3544D2DDDCA3D00048A3D /* MAD_ALP */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MAD_ALP;
@@ -116,7 +111,6 @@
 				3FB3544D2DDDCA3D00048A3D /* MAD_ALP */,
 				3F117DFB2DE01527000EC351 /* MAD_ALP-Watch Watch App */,
 				3F117E0C2DE01529000EC351 /* MAD_ALP-Watch Watch AppTests */,
-				3F117E162DE01529000EC351 /* MAD_ALP-Watch Watch AppUITests */,
 				3FB3544C2DDDCA3D00048A3D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -192,9 +186,6 @@
 			);
 			dependencies = (
 				3F117E152DE01529000EC351 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				3F117E162DE01529000EC351 /* MAD_ALP-Watch Watch AppUITests */,
 			);
 			name = "MAD_ALP-Watch Watch AppUITests";
 			packageProductDependencies = (
