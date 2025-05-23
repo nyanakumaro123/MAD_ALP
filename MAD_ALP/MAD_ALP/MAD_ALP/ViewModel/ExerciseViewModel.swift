@@ -7,6 +7,7 @@
 
 import Foundation
 import WatchConnectivity
+//import SwiftData
 
 class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
     // Watch
@@ -43,4 +44,6 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
 //            self.books.append(Book(title: message["title"] as! String, author: message["author"] as! String, image: message["image"] as! String, genre: message["genre"] as! String))
         }
     }
+    
+    
 }

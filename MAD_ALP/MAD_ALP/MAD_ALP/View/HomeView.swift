@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
     @State private var showDatePicker: Bool = false
     @State private var selectedDate: Date = Date()
+    @State private var isAddExercise = false
+    @Environment(\.modelContext) private var modelContext
     
     var dateIndicator: String {
         let calender = Calendar.current
@@ -37,32 +40,62 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                HStack {
+            ZStack(alignment: .bottom) {
+                VStack {
+                    HStack {
+                        Spacer()
+                        
+                        //date indicator
+                        VStack {
+                            Text("\(dateIndicator)")
+                                .font(.system(size: 32))
+                                .fontWeight(.bold)
+                            Text("\(dayName), \(dateOnly)")
+                                .font(.system(size: 20))
+                        }.padding()
+                        Spacer()
+                        
+                        selectDateButton
+                        Spacer()
+                    }
                     Spacer()
                     
-                    //date indicator
-                    VStack {
-                        Text("\(dateIndicator)")
-                            .font(.system(size: 32))
-                            .fontWeight(.bold)
-                        Text("\(dayName), \(dateOnly)")
-                            .font(.system(size: 20))
-                    }.padding()
-                    Spacer()
+                    ScrollView {
+                        Text("No events scheduled")
+                            .font(.system(size: 24))
+                    }
                     
-                    selectDateButton
+                    
+                    Spacer()
                     Spacer()
                 }
-                Spacer()
                 
-                Text("No events scheduled")
-                    .font(.system(size: 24))
-                
-                Spacer()
-                Spacer()
+                // Plus Button
+                HStack(alignment: .bottom) {
+                    Spacer()
+                    
+                    Button(action: {
+                        isAddExercise = true
+                    }) {
+                        Image(systemName: "plus")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .padding(24)
+                            .foregroundColor(.white)
+                            .background(.blue)
+                            .cornerRadius(200)
+                    }
+                }
+                .padding(.bottom, 48)
+                .padding(.trailing, 40)
             }
+            .fullScreenCover(isPresented: $isAddExercise) {
+                AddExerciseView(title: "", date: selectedDate)
+                    .environment(\.modelContext, modelContext)
+            }
+            
         }
+        
     }
 }
 

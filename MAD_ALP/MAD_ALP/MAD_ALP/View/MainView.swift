@@ -14,13 +14,6 @@ struct MainView: View {
             HomeView()
                 .tabItem {
                     Label("Home", systemImage: "house")
-                }
-            
-            // Add exercise
-            AddExerciseView()
-                .tabItem {
-                    Label("Add Exercise", systemImage:
-                        "plus.square")
                 }//.badge("!")
             
             // Template, add exercise
