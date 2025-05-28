@@ -95,13 +95,13 @@ struct AddScheduleView: View {
                 dismiss()
             })
             .navigationBarItems(trailing: Button("Save") {
-//                scheduleViewModel.addSchedule(
-//                    title: title,
-//                    date: selectedDate,
-//                    time: <#T##Date#>,
-//                    exercises: <#T##[Exercise]#>,
-//                    context: <#T##ModelContext#>)
-//                dismiss()
+                scheduleViewModel.addSchedule(
+                    title: title,
+                    date: selectedDate,
+                    time: time,
+                    exercises: selectedExercises,
+                    context: modelContext)
+                dismiss()
             })
         }
     }
