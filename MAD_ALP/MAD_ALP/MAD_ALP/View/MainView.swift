@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct MainView: View {
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var exerciseViewModel: ExerciseViewModel
+    @EnvironmentObject var scheduleViewModel: ScheduleViewModel
+    
     var body: some View {
         TabView {
             // Calendar
@@ -27,4 +31,6 @@ struct MainView: View {
 
 #Preview {
     MainView()
+        .environmentObject(ExerciseViewModel())
+        .environmentObject(ScheduleViewModel())
 }

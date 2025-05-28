@@ -45,7 +45,7 @@ struct AddExerciseView: View {
                         .datePickerStyle(CompactDatePickerStyle())
                     
                     // Exercise selection
-                    Section() {
+                    Section () {
                         Button {
                             showingExercisePicker = true
                         } label: {
@@ -56,6 +56,7 @@ struct AddExerciseView: View {
                                 Text(selectedExercise?.name ?? "Select")
                                     .foregroundColor(.gray)
                             }
+                            // + add more
                         }
                     }
                     .sheet(isPresented: $showingExercisePicker) {

@@ -78,3 +78,5 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
     
     
 }
+
+
