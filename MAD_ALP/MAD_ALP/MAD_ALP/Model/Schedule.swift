@@ -6,11 +6,28 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Schedule: Identifiable, Hashable {
-    let id = UUID()
-    let title: String
-    let date: Date
-    let time: DateComponents // Change this into time format
-    let exercises: [ExerciseGroup]
+@Model
+class Schedule: Identifiable {
+    var id: UUID
+    var title: String
+    var date: Date
+    var time: Date
+    var exercises: [Exercise]
+
+    init(
+        id: UUID = UUID(),
+        title: String,
+        date: Date,
+        time: Date,
+        exercises: [Exercise] = []
+    ) {
+        self.id = id
+        self.title = title
+        self.date = date
+        self.time = time
+        self.exercises = exercises
+    }
 }
+

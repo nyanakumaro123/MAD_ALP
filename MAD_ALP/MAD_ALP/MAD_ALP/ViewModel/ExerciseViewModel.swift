@@ -15,19 +15,6 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
     
     private let baseDataKey = "hasLoadedBaseExercises"
     
-    // Init
-    init(session: WCSession = .default) {
-        // Watch
-        self.session = session
-        
-        super.init()
-        session.delegate = self
-        session.activate( )
-        
-        loadBaseExercises()
-        
-    }
-    
     // Watch
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
         
@@ -42,28 +29,43 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
     }
     // Watch
     
-    private func loadExercisesIfNeeded() {
-            let defaults = UserDefaults.standard
-            
-            if !defaults.bool(forKey: baseDataKey) {
-                // First launch - load base exercises
-                loadBaseExercises()
-                
-                // Mark base data as loaded so next time it won't load again
-                defaults.set(true, forKey: baseDataKey)
-            }
+    // Init
+    init(session: WCSession = .default) {
+        // Watch
+        self.session = session
+        
+        super.init()
+        session.delegate = self
+        session.activate( )
+        
+        //loadExercisesIfNeeded()
+        loadBaseExercises()
+    }
+    
+//    private func loadExercisesIfNeeded() {
+//        let defaults = UserDefaults.standard
+//        
+//        if !defaults.bool(forKey: baseDataKey) {
+//            // First launch - load base exercises
+//            loadBaseExercises()
+//            
+//            // Mark base data as loaded so next time it won't load again
+//            defaults.set(true, forKey: baseDataKey)
+//        }
 //            else {
 //                // Not first launch - optionally load saved exercises or leave empty
 //                loadSavedExercises()
 //            }
-        }
+//    }
         
-    func loadBaseExercises() {
-        exercises.append(ExerciseGroup(name: "Chess Day", exercises: [Exercise(name: "", detail: "", image: "")]))
-        exercises.append(ExerciseGroup(name: "Leg Day", exercises: [Exercise(name: "", detail: "", image: "")]))
-        exercises.append(ExerciseGroup(name: "Back Day", exercises: [Exercise(name: "", detail: "", image: "")]))
-        exercises.append(ExerciseGroup(name: "Arm Day", exercises: [Exercise(name: "", detail: "", image: "")]))
-        exercises.append(ExerciseGroup(name: "Neck Day", exercises: [Exercise(name: "", detail: "", image: "")]))
+    private func loadBaseExercises() {
+        let baseExercises = [
+            Exercise(name: "Push Up", tips: ["Keep your back straight", "Lower yourself slowly"]),
+            Exercise(name: "Squat", tips: ["Feet shoulder-width apart", "Keep your knees behind toes"]),
+            Exercise(name: "Plank", tips: ["Keep your core tight", "Don't let your hips sag"])
+        ]
+        
+        exercises = baseExercises
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
@@ -76,3 +78,5 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
     
     
 }
+
+

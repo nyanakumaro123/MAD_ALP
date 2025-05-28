@@ -6,10 +6,17 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Exercise: Identifiable, Hashable {
-    let id = UUID()
+@Model
+class Exercise: Identifiable {
+    var id: UUID
     var name: String
-    var detail: String
-    var image: String
+    var tips: [String]
+
+    init(id: UUID = UUID(), name: String, tips: [String] = []) {
+        self.id = id
+        self.name = name
+        self.tips = tips
+    }
 }
