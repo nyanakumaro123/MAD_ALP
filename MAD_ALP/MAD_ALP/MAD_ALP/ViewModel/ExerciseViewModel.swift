@@ -10,7 +10,7 @@ import WatchConnectivity
 import SwiftData
 
 class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
-    @Published var exercises = [ExerciseGroup]()
+    @Published var exercises = [Exercise]()
     var session: WCSession
     
     private let baseDataKey = "hasLoadedBaseExercises"
