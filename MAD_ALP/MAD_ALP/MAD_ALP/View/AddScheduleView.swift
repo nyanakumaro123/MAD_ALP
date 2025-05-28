@@ -23,6 +23,9 @@ struct AddScheduleView: View {
     @State private var selectedExercises: [Exercise] = []
     @State private var tempSelectedExercise: Exercise?
     
+    @State private var showValidationAlert: Bool = false
+    @State private var alertMessage = ""
+    
     init(title: String = "", date: Date = Date()) {
         let today = Calendar.current.startOfDay(for: Date())
         let editPastDate = max(date, today)
@@ -47,17 +50,6 @@ struct AddScheduleView: View {
                     
                     // Exercise selection
                     Section(header: Text("Exercises")) {
-                        Button {
-                            showingExercisePicker = true
-                        } label: {
-                            HStack {
-                                Text("Add Exercise")
-                                Spacer()
-                                Image(systemName: "plus.circle.fill")
-                                    .foregroundColor(.blue)
-                            }
-                        }
-
                         // List added exercises
                         if !selectedExercises.isEmpty {
                             ForEach(Array(selectedExercises.enumerated()), id: \.offset) { index, exercise in
@@ -73,6 +65,18 @@ struct AddScheduleView: View {
                                             .foregroundColor(.red)
                                     }
                                 }
+                            }
+                        }
+                        
+                        // Add exercise
+                        Button {
+                            showingExercisePicker = true
+                        } label: {
+                            HStack {
+                                Text("Add Exercise")
+                                Spacer()
+                                Image(systemName: "plus.circle.fill")
+                                    .foregroundColor(.blue)
                             }
                         }
                     }
@@ -95,15 +99,35 @@ struct AddScheduleView: View {
                 dismiss()
             })
             .navigationBarItems(trailing: Button("Save") {
-                scheduleViewModel.addSchedule(
-                    title: title,
-                    date: selectedDate,
-                    time: time,
-                    exercises: selectedExercises,
-                    context: modelContext)
-                dismiss()
+                if (title == "" || selectedExercises.isEmpty) {
+                    if title.isEmpty {
+                        alertMessage += "Schedule title is required.\n"
+                    }
+                    if selectedExercises.isEmpty {
+                        alertMessage += "At least one exercise must be selected."
+                    }
+                    showValidationAlert = true
+                }
+                else {
+                    scheduleViewModel.addSchedule(
+                        title: title,
+                        date: selectedDate,
+                        time: time,
+                        exercises: selectedExercises,
+                        context: modelContext)
+                    dismiss()
+                }
             })
         }
+        .alert("Missing Information", isPresented: $showValidationAlert) {
+            Button("OK", role: .cancel) {
+                alertMessage = ""
+                showValidationAlert = false
+            }
+        } message: {
+            Text(alertMessage)
+        }
+
     }
 }
 
