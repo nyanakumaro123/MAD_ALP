@@ -76,10 +76,11 @@ struct HomeView: View {
                                 .foregroundColor(.gray)
                             Spacer()
                         }
-                    } else {
+                    }
+                    else {
                         List {
-                            ForEach(filteredSchedules) { schedule in
-                                ScheduleCard(schedule: schedule)
+                            ForEach(Array(filteredSchedules.enumerated()), id: \.element.id) { index, schedule in
+                                ScheduleCard(schedule: schedule, index: index)
                             }
                             .onDelete { indexSet in
                                 scheduleViewModel.deleteSchedules(

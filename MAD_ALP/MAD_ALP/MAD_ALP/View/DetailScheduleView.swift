@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct DetailScheduleView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    var schedule: Schedule
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Details of \(schedule.title)")
+        Button("Close") {
+            dismiss()
+        }
     }
 }
 
 #Preview {
-    DetailScheduleView()
+    DetailScheduleView(schedule: Schedule(title: "TitleName", date: Date(), time: Date(), exercises: [Exercise(name: "Push Up", tips: ["Keep back straight"]), Exercise(name: "Squat", tips: ["Bend knees", "Keep balance"])]) )
 }
