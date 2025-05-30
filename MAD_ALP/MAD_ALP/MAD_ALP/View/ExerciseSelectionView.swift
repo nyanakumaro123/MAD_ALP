@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ExerciseSelectionView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var exerciseViewModel: ExerciseViewModel
+    
+    @Environment(\.modelContext) private var modelContext
+    @Query var exercise: [Exercise]
     
     @Binding var selectedExercise: Exercise?
     @State private var searchText: String = ""
@@ -32,6 +36,7 @@ struct ExerciseSelectionView: View {
                             .font(.body)
                             .padding(.vertical, 8)
                             .foregroundColor(.black)
+//                        Text(exercise.targets)
                     }
                 }
             }
@@ -53,10 +58,6 @@ struct ExerciseSelectionView: View {
     )
     .environmentObject({
         let viewModel = ExerciseViewModel()
-        viewModel.exercises = [
-            Exercise(name: "Push Up", tips: ["Keep back straight"]),
-            Exercise(name: "Squat", tips: ["Bend knees", "Keep balance"])
-        ]
         return viewModel
     }())
 }

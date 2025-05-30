@@ -12,13 +12,16 @@ import SwiftData
 class Exercise: Identifiable {
     var id: UUID
     var name: String
+    var targets: [String]
     var tips: [String]
     var images: [String]
 
-    init(id: UUID = UUID(), name: String, tips: [String] = [], images: [String] = []) {
+    init(id: UUID = UUID(), name: String, targets: [String] = [], tips: [String] = [], images: [String] = []) {
         self.id = id
         self.name = name
+        self.targets = targets
         self.tips = tips
         self.images = images
+        
     }
 }
