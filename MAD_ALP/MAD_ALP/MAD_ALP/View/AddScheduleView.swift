@@ -84,7 +84,7 @@ struct AddScheduleView: View {
                             ExerciseSelectionView(selectedExercise: $tempSelectedExercise)
                                 .environmentObject(exerciseViewModel)
                                 .onDisappear {
-                                    if let selected = tempSelectedExercise/*, !selectedExercises.contains(where: { $0.id == selected.id })*/ {
+                                    if let selected = tempSelectedExercise, !selectedExercises.contains(where: { $0.id == selected.id }) {
                                         selectedExercises.append(selected)
                                     }
                                     tempSelectedExercise = nil

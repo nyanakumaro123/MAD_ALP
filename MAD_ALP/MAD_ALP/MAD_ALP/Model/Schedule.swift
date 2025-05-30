@@ -21,7 +21,7 @@ class Schedule: Identifiable {
         title: String,
         date: Date,
         time: Date,
-        exercises: [Exercise]
+        exercises: [Exercise] = []
     ) {
         self.id = id
         self.title = title
