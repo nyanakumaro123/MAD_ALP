@@ -38,11 +38,11 @@ struct ExerciseSelectionView: View {
             .navigationTitle("Select Exercise")
             .searchable(text: $searchText)
         }
-        .onAppear {
-            if let selected = selectedExercise {
-                selectedExercise = exerciseViewModel.exercises.first(where: { $0.id == selected.id })
-            }
-        }
+//        .onAppear {
+//            if let selected = selectedExercise {
+//                selectedExercise = exerciseViewModel.exercises.first(where: { $0.id == selected.id })
+//            }
+//        }
 
     }
 }

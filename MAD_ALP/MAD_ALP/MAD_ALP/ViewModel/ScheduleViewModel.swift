@@ -57,4 +57,19 @@ class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
         context.insert(newSchedule)
         try? context.save()
     }
+    
+    func deleteSchedules(from schedules: [Schedule], at offsets: IndexSet, in context: ModelContext) {
+        for index in offsets {
+            guard index < schedules.count else { continue }
+            let scheduleToDelete = schedules[index]
+            context.delete(scheduleToDelete)
+        }
+
+        do {
+            try context.save()
+        } catch {
+            print("Failed to delete schedule(s): \(error)")
+        }
+    }
+
 }
