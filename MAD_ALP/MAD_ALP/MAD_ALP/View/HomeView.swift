@@ -76,19 +76,23 @@ struct HomeView: View {
                                 .foregroundColor(.gray)
                             Spacer()
                         }
-                    } else {
-                        List {
-                            ForEach(filteredSchedules) { schedule in
-                                ScheduleCard(schedule: schedule)
+                    }
+                    else {
+                        ScrollView {
+                            LazyVStack(spacing: 16) {
+                                ForEach(Array(filteredSchedules.enumerated()), id: \.element.id) { index, schedule in
+                                    ScheduleCard(schedule: schedule, index: index)
+                                }
                             }
-                            .onDelete { indexSet in
-                                scheduleViewModel.deleteSchedules(
-                                    from: filteredSchedules,
-                                    at: indexSet,
-                                    in: modelContext
-                                )
-                            }
+                            .padding()
                         }
+//                        .onDelete { indexSet in
+//                            scheduleViewModel.deleteSchedules(
+//                                from: filteredSchedules,
+//                                at: indexSet,
+//                                in: modelContext
+//                            )
+//                        }
                     }
                     
                     Spacer()
