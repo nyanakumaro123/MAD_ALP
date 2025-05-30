@@ -49,7 +49,35 @@ struct AddScheduleView: View {
                         .datePickerStyle(CompactDatePickerStyle())
                     
                     // Exercise selection
-                    Section(header: Text("Exercises")) {
+                    Section() {
+                        HStack {
+                            Text("Exercise:")
+                            Spacer()
+                            
+                            // Add exercise
+                            Button {
+                                tempSelectedExercise = nil   // Clear it BEFORE showing the picker
+                                showingExercisePicker = true
+                            } label: {
+                                HStack {
+                                    Text("Add Exercise")
+                        
+                                    Image(systemName: "plus.circle.fill")
+                                        .foregroundColor(.blue)
+                                }
+                            }
+                            .sheet(isPresented: $showingExercisePicker) {
+                                ExerciseSelectionView(selectedExercise: $tempSelectedExercise)
+                                    .environmentObject(exerciseViewModel)
+                                    .onDisappear {
+                                        if let selected = tempSelectedExercise, !selectedExercises.contains(where: { $0.id == selected.id }) {
+                                            selectedExercises.append(selected)
+                                        }
+                                        tempSelectedExercise = nil
+                                    }
+                            }
+                        }
+                        
                         // List added exercises
                         if !selectedExercises.isEmpty {
                             ForEach(Array(selectedExercises.enumerated()), id: \.offset) { index, exercise in
@@ -66,29 +94,6 @@ struct AddScheduleView: View {
                                     }
                                 }
                             }
-                        }
-                        
-                        // Add exercise
-                        Button {
-                            tempSelectedExercise = nil   // Clear it BEFORE showing the picker
-                            showingExercisePicker = true
-                        } label: {
-                            HStack {
-                                Text("Add Exercise")
-                                Spacer()
-                                Image(systemName: "plus.circle.fill")
-                                    .foregroundColor(.blue)
-                            }
-                        }
-                        .sheet(isPresented: $showingExercisePicker) {
-                            ExerciseSelectionView(selectedExercise: $tempSelectedExercise)
-                                .environmentObject(exerciseViewModel)
-                                .onDisappear {
-                                    if let selected = tempSelectedExercise, !selectedExercises.contains(where: { $0.id == selected.id }) {
-                                        selectedExercises.append(selected)
-                                    }
-                                    tempSelectedExercise = nil
-                                }
                         }
                         
                     }
