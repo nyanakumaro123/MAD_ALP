@@ -70,6 +70,7 @@ struct AddScheduleView: View {
                         
                         // Add exercise
                         Button {
+                            tempSelectedExercise = nil   // Clear it BEFORE showing the picker
                             showingExercisePicker = true
                         } label: {
                             HStack {
@@ -79,18 +80,18 @@ struct AddScheduleView: View {
                                     .foregroundColor(.blue)
                             }
                         }
-                    }
-                    .sheet(isPresented: $showingExercisePicker) {
-                        ExerciseSelectionView(selectedExercise: $tempSelectedExercise)
-                            .environmentObject(exerciseViewModel)
-                            .onDisappear {
-                                if let selected = tempSelectedExercise/*, !selectedExercises.contains(where: { $0.id == selected.id })*/ {
-                                    selectedExercises.append(selected)
+                        .sheet(isPresented: $showingExercisePicker) {
+                            ExerciseSelectionView(selectedExercise: $tempSelectedExercise)
+                                .environmentObject(exerciseViewModel)
+                                .onDisappear {
+                                    if let selected = tempSelectedExercise/*, !selectedExercises.contains(where: { $0.id == selected.id })*/ {
+                                        selectedExercises.append(selected)
+                                    }
+                                    tempSelectedExercise = nil
                                 }
-                                tempSelectedExercise = nil
-                            }
+                        }
+                        
                     }
-
                     
                 }
             }

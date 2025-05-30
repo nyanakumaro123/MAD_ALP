@@ -14,6 +14,8 @@ struct HomeView: View {
     @State private var isAddExercise = false
     
     @Environment(\.modelContext) private var modelContext
+    @Query var schedules: [Schedule]
+    
     @EnvironmentObject var exerciseViewModel: ExerciseViewModel
     @EnvironmentObject var scheduleViewModel: ScheduleViewModel
     
@@ -63,11 +65,31 @@ struct HomeView: View {
                     }
                     Spacer()
                     
-                    ScrollView {
-                        Text("No events scheduled")
-                            .font(.system(size: 24))
+                    let calendar = Calendar.current
+                    let filteredSchedules = schedules.filter { calendar.isDate($0.date, inSameDayAs: selectedDate) }
+
+                    if filteredSchedules.isEmpty {
+                        VStack {
+                            Spacer()
+                            Text("No Schedule")
+                                .font(.title2)
+                                .foregroundColor(.gray)
+                            Spacer()
+                        }
+                    } else {
+                        List {
+                            ForEach(filteredSchedules) { schedule in
+                                ScheduleCard(schedule: schedule)
+                            }
+                            .onDelete { indexSet in
+                                scheduleViewModel.deleteSchedules(
+                                    from: filteredSchedules,
+                                    at: indexSet,
+                                    in: modelContext
+                                )
+                            }
+                        }
                     }
-                    
                     
                     Spacer()
                     Spacer()
@@ -104,6 +126,7 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .modelContainer(for: [Schedule.self, Exercise.self], inMemory: true)
         .environmentObject(ExerciseViewModel())
         .environmentObject(ScheduleViewModel())
 }

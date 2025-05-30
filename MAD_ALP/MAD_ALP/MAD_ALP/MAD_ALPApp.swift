@@ -15,6 +15,7 @@ struct MAD_ALPApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .modelContainer(for: [Schedule.self, Exercise.self])
                 .environmentObject(exerciseViewModel)
                 .environmentObject(scheduleViewModel)
         }
