@@ -39,7 +39,7 @@ struct ScheduleCard: View {
     var body: some View {
         ZStack(alignment: .trailing) {
             // Background delete button
-            HStack {
+            HStack() {
                 Spacer()
                 Button {
                     withAnimation {
@@ -48,9 +48,11 @@ struct ScheduleCard: View {
                 } label: {
                     Image(systemName: "trash")
                         .foregroundColor(.white)
-                        .padding()
+                        .frame(width: 44, height: 44)
                 }
-                .padding(.trailing, 16)
+                .padding(.trailing, 20)
+                .background(Color.red)
+                .cornerRadius(8)
             }
             
             VStack(alignment: .leading) {
@@ -84,10 +86,17 @@ struct ScheduleCard: View {
             }
             .padding(20)
             .background(backgroundColor)
+            .onTapGesture {
+                if offsetX == 0 {
+                    withAnimation { showDetail = true }
+                }
+                else {
+                    withAnimation { offsetX = 0 }
+                }
+            }
             
         }
         .frame(minWidth: 0, maxWidth: .infinity)
-        .background(Color.red)
         .cornerRadius(12)
         //.padding(12)
         .offset(x: offsetX + dragOffset)
@@ -111,10 +120,6 @@ struct ScheduleCard: View {
                     }
             )
         .contentShape(Rectangle()) // Ensures whole card is tappable
-        .onTapGesture {
-            withAnimation { offsetX = 0 }
-            showDetail = true
-        }
         .fullScreenCover(isPresented: $showDetail) {
             DetailScheduleView(schedule: schedule)
         }
