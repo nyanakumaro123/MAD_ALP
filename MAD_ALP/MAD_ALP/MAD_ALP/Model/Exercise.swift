@@ -15,6 +15,9 @@ class Exercise: Identifiable {
     var targets: [String]
     var tips: [String]
     var images: [String]
+    
+    @Relationship(inverse: \Schedule.exercises)
+        var schedules: [Schedule] = []
 
     init(id: UUID = UUID(), name: String, targets: [String] = [], tips: [String] = [], images: [String] = []) {
         self.id = id
