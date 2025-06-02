@@ -16,6 +16,10 @@ struct ScheduleCard: View {
     
     @State private var offsetX: CGFloat = 0
     @GestureState private var dragOffset: CGFloat = 0
+    
+    @EnvironmentObject var scheduleViewModel: ScheduleViewModel
+    @Environment(\.modelContext) private var modelContext
+    @Query var schedules: [Schedule]
 
     var backgroundColor: Color {
         let colors: [Color] = [
@@ -43,15 +47,15 @@ struct ScheduleCard: View {
                 Spacer()
                 Button {
                     withAnimation {
-                        //
+                        // handle delete
+                        scheduleViewModel.deleteSchedule(withID: schedule.id, in: modelContext)
                     }
                 } label: {
                     Image(systemName: "trash")
-                        .foregroundColor(.white)
-                        .frame(width: 44, height: 44)
+                        .foregroundColor(.red)
+                        .font(.system(size: 40))
                 }
                 .padding(.trailing, 20)
-                .background(Color.red)
                 .cornerRadius(8)
             }
             
@@ -86,6 +90,7 @@ struct ScheduleCard: View {
             }
             .padding(20)
             .background(backgroundColor)
+            .offset(x: offsetX + dragOffset)
             .onTapGesture {
                 if offsetX == 0 {
                     withAnimation { showDetail = true }
@@ -99,7 +104,6 @@ struct ScheduleCard: View {
         .frame(minWidth: 0, maxWidth: .infinity)
         .cornerRadius(12)
         //.padding(12)
-        .offset(x: offsetX + dragOffset)
             .gesture(
                 DragGesture()
                     .updating($dragOffset) { value, state, _ in
