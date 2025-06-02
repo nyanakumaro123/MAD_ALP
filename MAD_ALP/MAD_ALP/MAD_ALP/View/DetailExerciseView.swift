@@ -6,13 +6,22 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DetailExerciseView: View {
+    @EnvironmentObject var exerciseViewModel: ExerciseViewModel
+    
+    @Environment(\.modelContext) private var modelContext
+    @Query var exercise: [Exercise]
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 ZStack {
                     Text("Detail Exercise View")
+                    Image("")
+                        .resizable()
+                        .frame(width: 100, height: 100)
                 }
             }
             .navigationTitle(Text("Detail Exercise"))
@@ -22,4 +31,5 @@ struct DetailExerciseView: View {
 
 #Preview {
     DetailExerciseView()
+        .environmentObject(ExerciseViewModel())
 }

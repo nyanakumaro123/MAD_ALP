@@ -13,7 +13,7 @@ struct ExerciseSelectionView: View {
     @EnvironmentObject var exerciseViewModel: ExerciseViewModel
     
     @Environment(\.modelContext) private var modelContext
-    @Query var exercise: [Exercise]
+    @Query var exercises: [Exercise]
     
     @Binding var selectedExercise: Exercise?
     @State private var searchText: String = ""
@@ -26,7 +26,7 @@ struct ExerciseSelectionView: View {
     
     var body: some View {
         NavigationView {
-            List {
+            List() {
                 ForEach(filteredExercises) { exercise in
                     Button(action: {
                         selectedExercise = exercise
@@ -36,7 +36,14 @@ struct ExerciseSelectionView: View {
                             .font(.body)
                             .padding(.vertical, 8)
                             .foregroundColor(.black)
-//                        Text(exercise.targets)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        // Iterate over the targets array
+                        ForEach(exercise.targets, id: \.self) { target in
+                            Text(target)
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
                     }
                 }
             }
@@ -56,10 +63,7 @@ struct ExerciseSelectionView: View {
     ExerciseSelectionView(
         selectedExercise: .constant(nil)
     )
-    .environmentObject({
-        let viewModel = ExerciseViewModel()
-        return viewModel
-    }())
+    .environmentObject(ExerciseViewModel())
 }
 
 
