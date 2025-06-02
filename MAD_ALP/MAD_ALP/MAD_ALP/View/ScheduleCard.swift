@@ -13,6 +13,13 @@ struct ScheduleCard: View {
     var index: Int
 
     @State private var showDetail = false
+    
+    @State private var offsetX: CGFloat = 0
+    @GestureState private var dragOffset: CGFloat = 0
+    
+    @EnvironmentObject var scheduleViewModel: ScheduleViewModel
+    @Environment(\.modelContext) private var modelContext
+    @Query var schedules: [Schedule]
 
     var backgroundColor: Color {
         let colors: [Color] = [
@@ -34,8 +41,25 @@ struct ScheduleCard: View {
 
     
     var body: some View {
-        HStack() {
-            VStack(alignment: .leading){
+        ZStack(alignment: .trailing) {
+            // Background delete button
+            HStack() {
+                Spacer()
+                Button {
+                    withAnimation {
+                        // handle delete
+                        scheduleViewModel.deleteSchedule(withID: schedule.id, in: modelContext)
+                    }
+                } label: {
+                    Image(systemName: "trash")
+                        .foregroundColor(.red)
+                        .font(.system(size: 40))
+                }
+                .padding(.trailing, 20)
+                .cornerRadius(8)
+            }
+            
+            VStack(alignment: .leading) {
                 Text("\(schedule.title)")
                     .font(.system(size: 24, weight: .bold, design: .rounded))
                     .foregroundStyle(textColorr)
@@ -64,17 +88,42 @@ struct ScheduleCard: View {
                     }
                 }
             }
-            Spacer()
+            .padding(20)
+            .background(backgroundColor)
+            .offset(x: offsetX + dragOffset)
+            .onTapGesture {
+                if offsetX == 0 {
+                    withAnimation { showDetail = true }
+                }
+                else {
+                    withAnimation { offsetX = 0 }
+                }
+            }
+            
         }
         .frame(minWidth: 0, maxWidth: .infinity)
-        .padding(20)
-        .background(backgroundColor)
         .cornerRadius(12)
         //.padding(12)
+            .gesture(
+                DragGesture()
+                    .updating($dragOffset) { value, state, _ in
+                        if value.translation.width < 0 {
+                            state = value.translation.width
+                        }
+                    }
+                    .onEnded { value in
+                        if value.translation.width < -100 {
+                            withAnimation {
+                                offsetX = -80
+                            }
+                        } else {
+                            withAnimation {
+                                offsetX = 0
+                            }
+                        }
+                    }
+            )
         .contentShape(Rectangle()) // Ensures whole card is tappable
-        .onTapGesture {
-            showDetail = true
-        }
         .fullScreenCover(isPresented: $showDetail) {
             DetailScheduleView(schedule: schedule)
         }

@@ -58,18 +58,40 @@ class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
         try? context.save()
     }
     
-    func deleteSchedules(from schedules: [Schedule], at offsets: IndexSet, in context: ModelContext) {
-        for index in offsets {
-            guard index < schedules.count else { continue }
-            let scheduleToDelete = schedules[index]
-            context.delete(scheduleToDelete)
-        }
-
+    func deleteSchedule(withID id: UUID, in context: ModelContext) {
+        let fetchDescriptor = FetchDescriptor<Schedule>(
+            predicate: #Predicate { schedule in
+                schedule.id == id
+            }
+        )
+        
         do {
+            let schedulesToDelete = try context.fetch(fetchDescriptor)
+            
+            for schedule in schedulesToDelete {
+                context.delete(schedule)
+            }
+            
             try context.save()
+            print("Schedule(s) deleted successfully.")
+            
         } catch {
-            print("Failed to delete schedule(s): \(error)")
+            print("Failed to fetch or delete schedule(s): \(error)")
         }
     }
+    
+//    func deleteSchedules(from schedules: [Schedule], at offsets: IndexSet, in context: ModelContext) {
+//        for index in offsets {
+//            guard index < schedules.count else { continue }
+//            let scheduleToDelete = schedules[index]
+//            context.delete(scheduleToDelete)
+//        }
+//
+//        do {
+//            try context.save()
+//        } catch {
+//            print("Failed to delete schedule(s): \(error)")
+//        }
+//    }
 
 }

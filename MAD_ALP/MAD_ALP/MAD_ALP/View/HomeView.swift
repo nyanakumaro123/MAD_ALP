@@ -80,7 +80,7 @@ struct HomeView: View {
                     else {
                         ScrollView {
                             LazyVStack(spacing: 16) {
-                                ForEach(Array(filteredSchedules.enumerated()), id: \.element.id) { index, schedule in
+                            ForEach(Array(filteredSchedules.enumerated()), id: \.element.id) { index, schedule in
                                     ScheduleCard(schedule: schedule, index: index)
                                 }
                             }
