@@ -17,7 +17,6 @@ struct TemplateCard: View {
     @State private var offsetX: CGFloat = 0
     @GestureState private var dragOffset: CGFloat = 0
     
-    @EnvironmentObject var scheduleViewModel: ScheduleViewModel
     @Environment(\.modelContext) private var modelContext
     @Query var schedules: [Schedule]
 
@@ -42,17 +41,16 @@ struct TemplateCard: View {
     
     var body: some View {
         ZStack(alignment: .trailing) {
-            // Background delete button
+            // Background Pick button
             HStack() {
                 Spacer()
                 Button {
                     withAnimation {
-                        // handle delete
-                        scheduleViewModel.deleteSchedule(withID: schedule.id, in: modelContext)
+                        // go to edit
                     }
                 } label: {
-                    Image(systemName: "trash")
-                        .foregroundColor(.red)
+                    Image(systemName: "pencil")
+                        .foregroundColor(.blue)
                         .font(.system(size: 40))
                 }
                 .padding(.trailing, 20)
