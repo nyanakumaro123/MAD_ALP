@@ -114,7 +114,7 @@ struct AddScheduleView: View {
                     
                 }
             }
-            .navigationTitle("Add Schedule")
+            .navigationTitle(isEdit ? "Edit Schedule" : "Add Schedule")
             .navigationBarItems(leading: Button("Cancel") {
                 dismiss()
             })

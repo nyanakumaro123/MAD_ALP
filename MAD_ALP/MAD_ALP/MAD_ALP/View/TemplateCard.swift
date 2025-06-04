@@ -66,6 +66,9 @@ struct TemplateCard: View {
                 }
             }
         }
+        .onTapGesture {
+            showEdit = true
+        }
         .padding(20)
         .background(backgroundColor)
         .frame(minWidth: 0, maxWidth: .infinity)
@@ -82,4 +85,10 @@ struct TemplateCard: View {
         }
         
     }
+}
+
+#Preview {
+    TemplateCard(template: Template(title: "Template Title Name", descriptions: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", exercises: [Exercise(name: "Push Up", tips: ["Keep back straight"]), Exercise(name: "Squat", tips: ["Bend knees", "Keep balance"])]), index: 0)
+    TemplateCard(template: Template(title: "Template Title Name", descriptions: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", exercises: [Exercise(name: "Push Up", tips: ["Keep back straight"]), Exercise(name: "Squat", tips: ["Bend knees", "Keep balance"])]), index: 1)
+    TemplateCard(template: Template(title: "Template Title Name", descriptions: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", exercises: [Exercise(name: "Push Up", tips: ["Keep back straight"]), Exercise(name: "Squat", tips: ["Bend knees", "Keep balance"])]), index: 2)
 }
