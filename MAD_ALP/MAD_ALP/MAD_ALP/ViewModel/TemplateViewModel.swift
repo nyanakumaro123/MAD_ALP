@@ -10,9 +10,9 @@ import WatchConnectivity
 import SwiftData
 import SwiftUICore
 
-class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
+class TemplateViewModel: NSObject, ObservableObject, WCSessionDelegate {
     @Environment(\.modelContext) private var modelContext
-    @Published var exercises = [Exercise]()
+    @Published var template = [Template]()
     var session: WCSession
     
     private let baseDataKey = "hasLoadedBaseExercises"
@@ -41,7 +41,7 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
         session.activate( )
         
         //loadExercisesIfNeeded()
-        loadBaseExercises()
+        loadBaseTemplates()
     }
     
 //    private func loadExercisesIfNeeded() {
@@ -60,21 +60,17 @@ class ExerciseViewModel: NSObject, ObservableObject, WCSessionDelegate {
 //            }
 //    }
         
-    private func loadBaseExercises() {
-        let baseExercises = [
-            Exercise(name: "Push Ups", targets: ["Chest, triceos, shoulders, core"], tips: ["Keep your back straight", "Lower yourself slowly"], images: ["pushUp1", "pushUp2"]),
-            Exercise(name: "Squats", targets: ["Quads, hamstrings, glutes, lower back, core"], tips: ["Feet shoulder-width apart", "Keep your knees behind toes"], images: ["squat1", "squat2"]),
-            Exercise(name: "Pull Ups", targets: ["Back, biceps, shoulders"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["pullUp1", "pullUp2"]),
-            Exercise(name: "Lunges", targets: ["Quads, glutes, hamstrings, calves, core"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["lunges1", "lunges2"]),
-            Exercise(name: "Dumbell Rows", targets: ["Back, biceps, forearms"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["dumbellRows1", "dumbellRows2"]),
-            Exercise(name: "Dips", targets: ["Chest, triceps, shoulders"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["dips1", "dips2"]),
-            Exercise(name: "Bench Press", targets: ["Chest, shoulders, triceps"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["benchPress1", "benchPress2"])
-        ]
+    private func loadBaseTemplates() {
+        let baseTemplates = [
+            Template(title: "Full Body Beginner", descriptions: "A balanced routine for beginners targeting all major muscle groups.", exercises: [Exercise(name: "Push Ups", targets: ["Chest", "Triceps", "Shoulders", "Core"], tips: ["Keep your back straight", "Lower yourself slowly"], images: ["pushUp1", "pushUp2"]), Exercise(name: "Squats", targets: ["Quads", "Hamstrings", "Glutes", "Lower Back", "Core"], tips: ["Feet shoulder-width apart", "Keep your knees behind toes"], images: ["squat1", "squat2"]), Exercise(name: "Pull Ups", targets: ["Back", "Biceps", "Shoulders"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["pullUp1", "pullUp2"])]),
+            Template(title: "Lower Body Focus", descriptions: "Targets legs, glutes, and core — ideal for strengthening your lower half.", exercises: [Exercise(name: "Lunges", targets: ["Quads", "Glutes", "Hamstrings", "Calves", "Core"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["lunges1", "lunges2"]), Exercise(name: "Squats", targets: ["Quads", "Hamstrings", "Glutes", "Lower Back", "Core"], tips: ["Feet shoulder-width apart", "Keep your knees behind toes"], images: ["squat1", "squat2"])]),
+            Template(title: "Upper Body Strength", descriptions: "Great for building chest, shoulders, and arms.", exercises: [Exercise(name: "Dips", targets: ["Chest", "Triceps", "Shoulders"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["dips1", "dips2"]), Exercise(name: "Bench Press", targets: ["Chest", "Shoulders", "Triceps"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["benchPress1", "benchPress2"]), Exercise(name: "Dumbell Rows", targets: ["Back", "Biceps", "Forearms"], tips: ["Pull with your elbow", "Keep your back straight"], images: ["dumbellRows1", "dumbellRows2"])])]
+
         
-        exercises = baseExercises
-        exercises.forEach { exercise in
-            modelContext.insert(exercise)
-        }
+        template = baseTemplates
+//        exercises.forEach { exercise in
+//            modelContext.insert(exercise)
+//        }
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
