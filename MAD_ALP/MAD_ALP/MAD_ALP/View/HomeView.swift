@@ -119,7 +119,7 @@ struct HomeView: View {
                 .padding(.trailing, 40)
             }
             .fullScreenCover(isPresented: $isAddExercise) {
-                AddScheduleView(title: "", date: selectedDate)
+                AddScheduleView(date: selectedDate)
                     .environment(\.modelContext, modelContext)
             }
             

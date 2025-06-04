@@ -58,6 +58,32 @@ class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
         try? context.save()
     }
     
+    func updateSchedule(id: UUID, newTitle: String, newDate: Date, newTime: Date, newExercises: [Exercise], context: ModelContext) {
+        let fetchDescriptor = FetchDescriptor<Schedule>(
+            predicate: #Predicate { $0.id == id }
+        )
+
+        do {
+            let results = try context.fetch(fetchDescriptor)
+            guard let scheduleToUpdate = results.first else {
+                print("Schedule with ID \(id) not found.")
+                return
+            }
+
+            scheduleToUpdate.title = newTitle
+            scheduleToUpdate.date = newDate
+            scheduleToUpdate.time = newTime
+            scheduleToUpdate.exercises = newExercises
+
+            try context.save()
+            print("Schedule updated successfully.")
+        }
+        catch {
+            print("Failed to update schedule: \(error)")
+        }
+    }
+
+    
     func deleteSchedule(withID id: UUID, in context: ModelContext) {
         let fetchDescriptor = FetchDescriptor<Schedule>(
             predicate: #Predicate { schedule in

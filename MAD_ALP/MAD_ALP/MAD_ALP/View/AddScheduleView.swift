@@ -15,6 +15,8 @@ struct AddScheduleView: View {
     @EnvironmentObject var exerciseViewModel: ExerciseViewModel
     @EnvironmentObject var scheduleViewModel: ScheduleViewModel
     @State private var showingExercisePicker = false
+    @State private var isEdit = false
+    @State private var scheduleID: UUID = UUID()
     
     // Data imput value
     @State private var title = ""
@@ -26,12 +28,24 @@ struct AddScheduleView: View {
     @State private var showValidationAlert: Bool = false
     @State private var alertMessage = ""
     
-    init(title: String = "", date: Date = Date()) {
+    // Add init
+    init(date: Date = Date()) {
         let today = Calendar.current.startOfDay(for: Date())
         let editPastDate = max(date, today)
                                         
-        _title = State(initialValue: title)
+//        _title = State(initialValue: title)
         _selectedDate = State(initialValue: editPastDate)
+        _isEdit = State(initialValue: false)
+    }
+    
+    // Edit init
+    init(id: UUID = UUID(), title: String = "", selectedDate: Date = Date(), time: Date = Date(), selectedExercises: [Exercise] = []) {
+        _title = State(initialValue: title)
+        _selectedDate = State(initialValue: selectedDate)
+        _time = State(initialValue: time)
+        _selectedExercises = State(initialValue: selectedExercises)
+        _scheduleID = State(initialValue: id)
+        _isEdit = State(initialValue: true)
     }
     
     var body: some View {
@@ -115,13 +129,26 @@ struct AddScheduleView: View {
                     showValidationAlert = true
                 }
                 else {
-                    scheduleViewModel.addSchedule(
-                        title: title,
-                        date: selectedDate,
-                        time: time,
-                        exercises: selectedExercises,
-                        context: modelContext)
-                    dismiss()
+                    if (isEdit) {
+                        scheduleViewModel.updateSchedule(
+                            id: scheduleID,
+                            newTitle: title,
+                            newDate: selectedDate,
+                            newTime: time,
+                            newExercises: selectedExercises,
+                            context: modelContext
+                        )
+                        dismiss()
+                    }
+                    else {
+                        scheduleViewModel.addSchedule(
+                            title: title,
+                            date: selectedDate,
+                            time: time,
+                            exercises: selectedExercises,
+                            context: modelContext)
+                        dismiss()
+                    }
                 }
             })
         }
