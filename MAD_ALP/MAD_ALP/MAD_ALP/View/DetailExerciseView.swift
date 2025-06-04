@@ -19,9 +19,9 @@ struct DetailExerciseView: View {
             ScrollView {
                 ZStack {
                     Text("Detail Exercise View")
-                    Image("")
-                        .resizable()
-                        .frame(width: 100, height: 100)
+//                    Image(exercise.image1)
+//                        .resizable()
+//                        .frame(width: 100, height: 100)
                 }
             }
             .navigationTitle(Text("Detail Exercise"))
