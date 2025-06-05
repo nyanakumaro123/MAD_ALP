@@ -15,6 +15,7 @@ struct TemplateExerciseView: View {
             Text("Template Exercise")
                 .font(.title)
                 .fontWeight(.bold)
+                .padding(.bottom, 24)
             
             if (templateViewModel.templates.isEmpty) {
                 VStack {
