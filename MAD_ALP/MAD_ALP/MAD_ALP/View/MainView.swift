@@ -11,6 +11,7 @@ struct MainView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var exerciseViewModel: ExerciseViewModel
     @EnvironmentObject var scheduleViewModel: ScheduleViewModel
+    @EnvironmentObject var templateViewModel: TemplateViewModel
     
     var body: some View {
         TabView {
@@ -31,6 +32,8 @@ struct MainView: View {
 
 #Preview {
     MainView()
+        .modelContainer(for: [Schedule.self, Exercise.self], inMemory: true)
         .environmentObject(ExerciseViewModel())
         .environmentObject(ScheduleViewModel())
+        .environmentObject(TemplateViewModel())
 }

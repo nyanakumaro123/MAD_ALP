@@ -39,13 +39,13 @@ struct AddScheduleView: View {
     }
     
     // Edit init
-    init(id: UUID = UUID(), title: String = "", selectedDate: Date = Date(), time: Date = Date(), selectedExercises: [Exercise] = []) {
+    init(id: UUID = UUID(), title: String = "", selectedDate: Date = Date(), time: Date = Date(), selectedExercises: [Exercise] = [], isEdit: Bool = true) {
         _title = State(initialValue: title)
         _selectedDate = State(initialValue: selectedDate)
         _time = State(initialValue: time)
         _selectedExercises = State(initialValue: selectedExercises)
         _scheduleID = State(initialValue: id)
-        _isEdit = State(initialValue: true)
+        _isEdit = State(initialValue: isEdit)
     }
     
     var body: some View {

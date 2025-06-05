@@ -80,7 +80,8 @@ struct TemplateCard: View {
                 title: template.title,
                 selectedDate: Date(),
                 time: Date(),
-                selectedExercises: template.exercises
+                selectedExercises: template.exercises,
+                isEdit: false
             )
         }
         

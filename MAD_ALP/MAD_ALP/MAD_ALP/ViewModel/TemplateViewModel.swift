@@ -12,7 +12,7 @@ import SwiftUICore
 
 class TemplateViewModel: NSObject, ObservableObject, WCSessionDelegate {
     @Environment(\.modelContext) private var modelContext
-    @Published var template = [Template]()
+    @Published var templates = [Template]()
     var session: WCSession
     
     private let baseDataKey = "hasLoadedBaseExercises"
@@ -67,7 +67,7 @@ class TemplateViewModel: NSObject, ObservableObject, WCSessionDelegate {
             Template(title: "Upper Body Strength", descriptions: "Great for building chest, shoulders, and arms.", exercises: [Exercise(name: "Dips", targets: ["Chest", "Triceps", "Shoulders"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["dips1", "dips2"]), Exercise(name: "Bench Press", targets: ["Chest", "Shoulders", "Triceps"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["benchPress1", "benchPress2"]), Exercise(name: "Dumbell Rows", targets: ["Back", "Biceps", "Forearms"], tips: ["Pull with your elbow", "Keep your back straight"], images: ["dumbellRows1", "dumbellRows2"])])]
 
         
-        template = baseTemplates
+        templates = baseTemplates
 //        exercises.forEach { exercise in
 //            modelContext.insert(exercise)
 //        }
