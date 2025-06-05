@@ -56,6 +56,16 @@ class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
         
         context.insert(newSchedule)
         try? context.save()
+        
+        let calendar = Calendar.current
+        let dateWithTime = calendar.date(
+            bySettingHour: calendar.component(.hour, from: time),
+            minute: calendar.component(.minute, from: time),
+            second: 0,
+            of: date
+        ) ?? date
+        
+        scheduleExerciseNotification(title: title, date: dateWithTime)
     }
     
     func updateSchedule(id: UUID, newTitle: String, newDate: Date, newTime: Date, newExercises: [Exercise], context: ModelContext) {

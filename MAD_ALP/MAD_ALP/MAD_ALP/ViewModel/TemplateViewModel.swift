@@ -12,7 +12,7 @@ import SwiftUICore
 
 class TemplateViewModel: NSObject, ObservableObject, WCSessionDelegate {
     @Environment(\.modelContext) private var modelContext
-    @Published var template = [Template]()
+    @Published var templates: [Template] = []
     var session: WCSession
     
     private let baseDataKey = "hasLoadedBaseExercises"
@@ -67,7 +67,7 @@ class TemplateViewModel: NSObject, ObservableObject, WCSessionDelegate {
             Template(title: "Upper Body Strength", descriptions: "Great for building chest, shoulders, and arms.", exercises: [Exercise(name: "Dips", targets: ["Chest", "Triceps", "Shoulders"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["dips1", "dips2"]), Exercise(name: "Bench Press", targets: ["Chest", "Shoulders", "Triceps"], tips: ["Keep your core tight", "Don't let your hips sag"], images: ["benchPress1", "benchPress2"]), Exercise(name: "Dumbell Rows", targets: ["Back", "Biceps", "Forearms"], tips: ["Pull with your elbow", "Keep your back straight"], images: ["dumbellRows1", "dumbellRows2"])])]
 
         
-        template = baseTemplates
+        templates = baseTemplates
 //        exercises.forEach { exercise in
 //            modelContext.insert(exercise)
 //        }
@@ -81,7 +81,36 @@ class TemplateViewModel: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
     
+    func fetchTemplates(context: ModelContext) {
+        let fetchDescriptor = FetchDescriptor<Template>()
+        do {
+            let results = try context.fetch(fetchDescriptor)
+            self.templates = results
+        } catch {
+            print("Failed to fetch templates: \(error)")
+        }
+    }
     
+    func addTemplate(title: String, descriptions: String = "", exercises: [Exercise], context: ModelContext) {
+        let newTemplate = Template(title: title, descriptions: descriptions, exercises: exercises)
+        context.insert(newTemplate)
+        do {
+            try context.save()
+            fetchTemplates(context: context)
+        } catch {
+            print("Failed to save template: \(error)")
+        }
+    }
+    
+    func deleteTemplate(template: Template, context: ModelContext) {
+        context.delete(template)
+        do {
+            try context.save()
+            fetchTemplates(context: context)
+        } catch {
+            print("Failed to delete template: \(error)")
+        }
+    }
 }
 
 

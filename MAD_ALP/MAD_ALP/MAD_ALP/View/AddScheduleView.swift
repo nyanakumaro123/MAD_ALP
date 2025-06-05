@@ -14,6 +14,7 @@ struct AddScheduleView: View {
     
     @EnvironmentObject var exerciseViewModel: ExerciseViewModel
     @EnvironmentObject var scheduleViewModel: ScheduleViewModel
+    @EnvironmentObject var templateViewModel: TemplateViewModel
     @State private var showingExercisePicker = false
     @State private var isEdit = false
     @State private var scheduleID: UUID = UUID()
@@ -27,6 +28,11 @@ struct AddScheduleView: View {
     
     @State private var showValidationAlert: Bool = false
     @State private var alertMessage = ""
+    
+    // Template logic
+    @State private var selectedTemplate: Template? = nil
+    @State private var saveAsTemplate: Bool = false
+    @State private var templateDescription: String = ""
     
     // Add init
     init(date: Date = Date()) {
@@ -51,9 +57,25 @@ struct AddScheduleView: View {
     var body: some View {
         NavigationView {
             Form {
+                // Template Picker
+                Section(header: Text("Template")) {
+                    Picker("Select Template", selection: $selectedTemplate) {
+                        Text("None").tag(Optional<Template>(nil))
+                        ForEach(templateViewModel.templates, id: \.id) { template in
+                            Text(template.title).tag(Optional(template))
+                        }
+                    }
+                    .onChange(of: selectedTemplate) { newTemplate in
+                        if let template = newTemplate {
+                            title = template.title
+                            selectedExercises = template.exercises
+                        }
+                    }
+                }
                 Section(header: Text("gym exercise info")) {
                     // Name
                     TextField("Title", text: $title)
+                        .disabled(selectedTemplate != nil)
                     
                     // Date
                     DatePicker("Date", selection: $selectedDate, in: Date()..., displayedComponents: .date)
@@ -80,6 +102,7 @@ struct AddScheduleView: View {
                                         .foregroundColor(.blue)
                                 }
                             }
+                            .disabled(selectedTemplate != nil)
                             .sheet(isPresented: $showingExercisePicker) {
                                 ExerciseSelectionView(selectedExercise: $tempSelectedExercise)
                                     .environmentObject(exerciseViewModel)
@@ -106,12 +129,20 @@ struct AddScheduleView: View {
                                         Image(systemName: "minus.circle.fill")
                                             .foregroundColor(.red)
                                     }
+                                    .disabled(selectedTemplate != nil)
                                 }
                             }
                         }
                         
                     }
                     
+                }
+                // Save as Template toggle
+                Section {
+                    Toggle("Save as Template", isOn: $saveAsTemplate)
+                    if saveAsTemplate {
+                        TextField("Template Description", text: $templateDescription)
+                    }
                 }
             }
             .navigationTitle(isEdit ? "Edit Schedule" : "Add Schedule")
@@ -147,6 +178,9 @@ struct AddScheduleView: View {
                             time: time,
                             exercises: selectedExercises,
                             context: modelContext)
+                        if saveAsTemplate {
+                            templateViewModel.addTemplate(title: title, descriptions: templateDescription, exercises: selectedExercises, context: modelContext)
+                        }
                         dismiss()
                     }
                 }
@@ -160,7 +194,9 @@ struct AddScheduleView: View {
         } message: {
             Text(alertMessage)
         }
-
+        .onAppear {
+            templateViewModel.fetchTemplates(context: modelContext)
+        }
     }
 }
 
@@ -168,6 +204,7 @@ struct AddScheduleView: View {
     AddScheduleView()
         .environmentObject(ExerciseViewModel())
         .environmentObject(ScheduleViewModel())
+        .environmentObject(TemplateViewModel())
         .modelContainer(for: Exercise.self, inMemory: true)
 //    AddExerciseView(title: "Leg Day", date: ISO8601DateFormatter().date(from: "2021-04-16T00:00:00Z")!)
 }

@@ -11,6 +11,7 @@ struct MainView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var exerciseViewModel: ExerciseViewModel
     @EnvironmentObject var scheduleViewModel: ScheduleViewModel
+    @StateObject var templateViewModel = TemplateViewModel()
     
     var body: some View {
         TabView {
@@ -26,6 +27,7 @@ struct MainView: View {
                     Label("Template", systemImage: "text.book.closed")
                 }
         }
+        .environmentObject(templateViewModel)
     }
 }
 
@@ -33,4 +35,5 @@ struct MainView: View {
     MainView()
         .environmentObject(ExerciseViewModel())
         .environmentObject(ScheduleViewModel())
+        .environmentObject(TemplateViewModel())
 }

@@ -13,7 +13,7 @@ class Template: Identifiable {
     var id: UUID
     var title: String
     var descriptions: String
-    var exercises: [Exercise]
+    @Relationship var exercises: [Exercise]
 
     init(
         id: UUID = UUID(),
