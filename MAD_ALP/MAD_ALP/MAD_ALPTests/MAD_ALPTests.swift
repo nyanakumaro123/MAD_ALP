@@ -33,8 +33,8 @@ final class MAD_ALPTests: XCTestCase {
             date: Date(),
             time: Date(),
             exercises: [
-                Exercise(name: "Push Ups", targets: ["Chest, triceps, shoulders, core"], tips: ["Keep your back straight", "Lower yourself slowly"], images: ["pushUp1", "pushUp2"]),
-                Exercise(name: "Squats", targets: ["Quads, hamstrings, glutes, lower back, core"], tips: ["Feet shoulder-width apart", "Keep your knees behind toes"], images: ["squat1", "squat2"])
+                Exercise(name: "Push Ups", targets: ["Chest, triceps, shoulders, core"], tips: ["Keep your back straight", "Lower yourself slowly"], image1: ["pushUp1"], image2:["pushUp2"]),
+                Exercise(name: "Squats", targets: ["Quads, hamstrings, glutes, lower back, core"], tips: ["Feet shoulder-width apart", "Keep your knees behind toes"], image1: ["squat1"], image2: ["squat2"])
             ],
             context: context
         )
