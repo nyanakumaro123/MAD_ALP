@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		3F117E1D2DE01529000EC351 /* MAD_ALP-Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 3F117DFA2DE01527000EC351 /* MAD_ALP-Watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		3F117E0A2DE01529000EC351 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -19,13 +15,6 @@
 			remoteInfo = "MAD_ALP-Watch Watch App";
 		};
 		3F117E142DE01529000EC351 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3FB354432DDDCA3D00048A3D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3F117DF92DE01527000EC351;
-			remoteInfo = "MAD_ALP-Watch Watch App";
-		};
-		3F117E1B2DE01529000EC351 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3FB354432DDDCA3D00048A3D /* Project object */;
 			proxyType = 1;
@@ -63,16 +52,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		3F117DFB2DE01527000EC351 /* MAD_ALP-Watch Watch App */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "MAD_ALP-Watch Watch App";
-			sourceTree = "<group>";
-		};
-		3F117E0C2DE01529000EC351 /* MAD_ALP-Watch Watch AppTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "MAD_ALP-Watch Watch AppTests";
-			sourceTree = "<group>";
-		};
 		3F3988692DF12CF300A1F4BD /* MAD_ALPTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MAD_ALPTests;
@@ -128,8 +107,6 @@
 			isa = PBXGroup;
 			children = (
 				3FB3544D2DDDCA3D00048A3D /* MAD_ALP */,
-				3F117DFB2DE01527000EC351 /* MAD_ALP-Watch Watch App */,
-				3F117E0C2DE01529000EC351 /* MAD_ALP-Watch Watch AppTests */,
 				3F3988692DF12CF300A1F4BD /* MAD_ALPTests */,
 				3FB3544C2DDDCA3D00048A3D /* Products */,
 			);
@@ -162,9 +139,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				3F117DFB2DE01527000EC351 /* MAD_ALP-Watch Watch App */,
-			);
 			name = "MAD_ALP-Watch Watch App";
 			packageProductDependencies = (
 			);
@@ -184,9 +158,6 @@
 			);
 			dependencies = (
 				3F117E0B2DE01529000EC351 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				3F117E0C2DE01529000EC351 /* MAD_ALP-Watch Watch AppTests */,
 			);
 			name = "MAD_ALP-Watch Watch AppTests";
 			packageProductDependencies = (
@@ -400,11 +371,6 @@
 			isa = PBXTargetDependency;
 			target = 3F117DF92DE01527000EC351 /* MAD_ALP-Watch Watch App */;
 			targetProxy = 3F117E142DE01529000EC351 /* PBXContainerItemProxy */;
-		};
-		3F117E1C2DE01529000EC351 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3F117DF92DE01527000EC351 /* MAD_ALP-Watch Watch App */;
-			targetProxy = 3F117E1B2DE01529000EC351 /* PBXContainerItemProxy */;
 		};
 		3F39886D2DF12CF300A1F4BD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
