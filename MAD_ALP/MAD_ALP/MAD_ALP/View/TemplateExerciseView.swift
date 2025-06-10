@@ -13,9 +13,9 @@ struct TemplateExerciseView: View {
     var body: some View {
         VStack {
             Text("Template Exercise")
-                .font(.title)
+                .font(.system(size: 36, weight: .bold))
                 .fontWeight(.bold)
-                .padding(.bottom, 24)
+                .padding(.bottom, 28)
             
             if (templateViewModel.templates.isEmpty) {
                 VStack {

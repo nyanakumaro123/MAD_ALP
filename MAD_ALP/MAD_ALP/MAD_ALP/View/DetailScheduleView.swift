@@ -51,6 +51,7 @@ struct DetailScheduleView: View {
                         .padding(.bottom, 8)
                     ForEach(schedule.exercises) { exercise in
                         // Exercise card
+                        ExerciseCardView(exercise: exercise)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
