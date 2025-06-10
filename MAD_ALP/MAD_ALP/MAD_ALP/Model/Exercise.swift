@@ -14,17 +14,31 @@ class Exercise: Identifiable {
     var name: String
     var targets: [String]
     var tips: [String]
-    var images: [String]
+    var image1: [String]
+    var image2: [String]
     
     @Relationship(inverse: \Schedule.exercises)
         var schedules: [Schedule] = []
 
-    init(id: UUID = UUID(), name: String, targets: [String] = [], tips: [String] = [], images: [String] = []) {
+    init(id: UUID = UUID(), name: String, targets: [String] = [], tips: [String] = [], image1: [String] = [], image2: [String] = []) {
         self.id = id
         self.name = name
         self.targets = targets
         self.tips = tips
-        self.images = images
+        self.image1 = image1
+        self.image2 = image2
         
+    }
+    
+    var getImage1: [String]{
+        get{
+            return image1
+        }
+    }
+    
+    var getImage2: [String]{
+        get{
+            return image2
+        }
     }
 }

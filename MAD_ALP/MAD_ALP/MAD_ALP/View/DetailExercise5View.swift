@@ -1,14 +1,14 @@
 //
-//  DetailExerciseView.swift
+//  DetailExercise5View.swift
 //  MAD_ALP
 //
-//  Created by student on 23/05/25.
+//  Created by NKIS on 05/06/25.
 //
 
 import SwiftUI
 import SwiftData
 
-struct DetailExerciseView: View {
+struct DetailExercise5View: View {
     @EnvironmentObject var exerciseViewModel: ExerciseViewModel
     
     @Environment(\.modelContext) private var modelContext
@@ -30,6 +30,6 @@ struct DetailExerciseView: View {
 }
 
 #Preview {
-    DetailExerciseView()
+    DetailExercise5View()
         .environmentObject(ExerciseViewModel())
 }

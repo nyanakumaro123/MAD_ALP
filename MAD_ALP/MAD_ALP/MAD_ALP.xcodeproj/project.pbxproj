@@ -48,7 +48,6 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				3F117E1D2DE01529000EC351 /* MAD_ALP-Watch Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,7 +250,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3F117E1C2DE01529000EC351 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				3FB3544D2DDDCA3D00048A3D /* MAD_ALP */,
