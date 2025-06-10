@@ -12,6 +12,7 @@ import SwiftData
 struct MAD_ALPApp: App {
     @StateObject private var exerciseViewModel = ExerciseViewModel()
     @StateObject private var scheduleViewModel = ScheduleViewModel()
+    @StateObject private var templateViewModel = TemplateViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -19,6 +20,7 @@ struct MAD_ALPApp: App {
                 .modelContainer(for: [Schedule.self, Exercise.self])
                 .environmentObject(exerciseViewModel)
                 .environmentObject(scheduleViewModel)
+                .environmentObject(templateViewModel)
         }
     }
 }
