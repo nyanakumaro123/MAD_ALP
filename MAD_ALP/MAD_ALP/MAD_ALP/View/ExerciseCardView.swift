@@ -10,6 +10,8 @@ import SwiftUI
 struct ExerciseCardView: View {
     var exercise: Exercise
     
+    @State private var showDetail = false
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -42,10 +44,17 @@ struct ExerciseCardView: View {
         .padding(20)
         .background(Color(red: 0.88, green: 0.922, blue: 0.843)) // Pastel Mint
         .cornerRadius(12)
+        .onTapGesture {
+            withAnimation { showDetail = true }
+        }
+        .contentShape(Rectangle()) // Ensures whole card is tappable
+        .fullScreenCover(isPresented: $showDetail) {
+            DetailExerciseView(exercise: exercise)
+        }
     }
     
     var tipsPreview: String {
-        let joinedTips = exercise.tips.joined(separator: " ")
+        let joinedTips = exercise.tips.joined(separator: ", ")
         return joinedTips.count > 80 ? String(joinedTips.prefix(80)) + "..." : joinedTips
     }
 }
