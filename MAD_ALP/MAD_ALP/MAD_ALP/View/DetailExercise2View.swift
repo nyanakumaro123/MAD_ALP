@@ -67,6 +67,7 @@ struct DetailExercise2View: View {
                         .padding(.bottom, 55)
                     }
                 }
+                
             }
             .navigationTitle(Text("Squat Detail"))
         }
