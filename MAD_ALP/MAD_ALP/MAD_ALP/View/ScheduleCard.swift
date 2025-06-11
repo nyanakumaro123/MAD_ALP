@@ -103,26 +103,34 @@ struct ScheduleCard: View {
         }
         .frame(minWidth: 0, maxWidth: .infinity)
         .cornerRadius(12)
+        .gesture(
+            LongPressGesture(minimumDuration: 0.3)  // 0.3 seconds hold
+                .onEnded { _ in
+                    withAnimation {
+                        offsetX = -80
+                    }
+                }
+        )
         //.padding(12)
-            .gesture(
-                DragGesture()
-                    .updating($dragOffset) { value, state, _ in
-                        if value.translation.width < 0 {
-                            state = value.translation.width
-                        }
-                    }
-                    .onEnded { value in
-                        if value.translation.width < -100 {
-                            withAnimation {
-                                offsetX = -80
-                            }
-                        } else {
-                            withAnimation {
-                                offsetX = 0
-                            }
-                        }
-                    }
-            )
+//            .gesture(
+//                DragGesture()
+//                    .updating($dragOffset) { value, state, _ in
+//                        if value.translation.width < 0 {
+//                            state = value.translation.width
+//                        }
+//                    }
+//                    .onEnded { value in
+//                        if value.translation.width < -100 {
+//                            withAnimation {
+//                                offsetX = -80
+//                            }
+//                        } else {
+//                            withAnimation {
+//                                offsetX = 0
+//                            }
+//                        }
+//                    }
+//                )
         .contentShape(Rectangle()) // Ensures whole card is tappable
         .fullScreenCover(isPresented: $showDetail) {
             DetailScheduleView(schedule: schedule)

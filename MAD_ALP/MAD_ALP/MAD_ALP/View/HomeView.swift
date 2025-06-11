@@ -67,7 +67,7 @@ struct HomeView: View {
                     
                     let calendar = Calendar.current
                     let filteredSchedules = schedules.filter { calendar.isDate($0.date, inSameDayAs: selectedDate) }
-
+                    
                     if filteredSchedules.isEmpty {
                         VStack {
                             Spacer()
@@ -84,8 +84,8 @@ struct HomeView: View {
                                     ScheduleCard(schedule: schedule, index: index)
                                 }
                             }
-                            .padding()
                         }
+                        .padding()
                     }
                     
                     Spacer()
