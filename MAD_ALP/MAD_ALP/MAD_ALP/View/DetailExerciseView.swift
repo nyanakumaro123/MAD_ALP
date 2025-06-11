@@ -19,11 +19,32 @@ struct DetailExerciseView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                ZStack {
-                    Text("Detail Exercise View")
-
+                VStack(alignment: .center, spacing: 16) {
+                    ForEach(0..<max(exercise.tips.count, exercise.image1.count), id: \.self) { index in
+                        
+                        // Display Image
+                        if index < exercise.image1.count {
+                            Image(exercise.image1[index])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 220)
+                                .cornerRadius(8)
+                        }
+                        
+                        // Display Tip
+                        if index < exercise.tips.count {
+                            Text(exercise.tips[index])
+                                .font(.system(size: 16))
+                                .padding(.top, 8)
+                                .padding(.bottom, 32)
+                            
+                                .multilineTextAlignment(.center)
+                        }
+                        
+                    }
                 }
             }
+            .padding(24)
             .navigationTitle(Text("\(exercise.name) Detail"))
             .navigationBarItems(leading: Button("Back") {
                 dismiss()
@@ -33,6 +54,6 @@ struct DetailExerciseView: View {
 }
 
 #Preview {
-    DetailExerciseView(exercise: Exercise(name: "Push Ups", targets: ["Chest, triceos, shoulders, core"], tips: ["Start in a plank position", "Lower your body all the way down, keeping your elbow pits pointed forward and tucked in to your sides", "Push yourself back up to the top of the plank"], image1: ["pushUp1"], image2: ["pushUp2"]))
+    DetailExerciseView(exercise: Exercise(name: "Push Ups", targets: ["Chest, triceos, shoulders, core"], tips: ["Start in a plank position", "Lower your body all the way down, keeping your elbow pits pointed forward and tucked in to your sides", "Push yourself back up to the top of the plank"], image1: ["pushUp1", "pushUp2", "pushUp1"], image2: ["pushUp2"]))
         .environmentObject(ExerciseViewModel())
 }

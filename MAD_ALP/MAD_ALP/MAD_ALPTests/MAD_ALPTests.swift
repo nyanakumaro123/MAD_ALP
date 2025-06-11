@@ -38,6 +38,7 @@ final class MAD_ALPTests: XCTestCase {
             date: Date(),
             time: Date(),
             exercises: [
+                // Add randomly between 1 - 5 exercises (no duplicate)
                 ExerciseViewModel.exercises.randomElement()!,
                 ExerciseViewModel.exercises.randomElement()!,
                 ExerciseViewModel.exercises.randomElement()!,
@@ -55,6 +56,24 @@ final class MAD_ALPTests: XCTestCase {
         if !schedules.isEmpty {
             print("Schedule successfully added.")
         }
+    }
+    
+    func testUpdateSchedule() throws {
+        let existingSchedules = try context.fetch(FetchDescriptor<Schedule>())
+        
+        guard let firstSchedule = existingSchedules.first else {
+            XCTFail("No existing schedules found to update.")
+            return
+        }
+        
+        print("Found existing schedule with ID: \(firstSchedule.id). Proceeding to update.")
+        
+        var letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        letters = String((0..<8).compactMap { _ in letters.randomElement() })
+        
+        ScheduleViewModel.updateSchedule(id: firstSchedule.id, newTitle: "UPDATED Title \(letters)", newDate: Date(), newTime: Date(), newExercises: [ExerciseViewModel.exercises.randomElement()!, ExerciseViewModel.exercises.randomElement()!], context: context)
+        
+        print("Selected Schedule updated successfully")
     }
     
     func testDeleteSchedule() throws {
