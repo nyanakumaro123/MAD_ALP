@@ -8,6 +8,7 @@
 import Foundation
 import WatchConnectivity
 import SwiftData
+import UserNotifications
 //import SwiftData
 
 class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
@@ -35,7 +36,16 @@ class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
         
         super.init()
         session.delegate = self
-        session.activate( )
+        session.activate()
+        
+        // Request notification permissions
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if granted {
+                print("Notification permission granted")
+            } else if let error = error {
+                print("Error requesting notification permission: \(error)")
+            }
+        }
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
@@ -129,5 +139,36 @@ class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
 //            print("Failed to delete schedule(s): \(error)")
 //        }
 //    }
+
+    func scheduleExerciseNotification(title: String, date: Date) {
+        let content = UNMutableNotificationContent()
+        content.title = "Exercise Starting Soon"
+        content.body = "Your exercise '\(title)' starts in 15 minutes"
+        content.sound = .default
+        
+        let calendar = Calendar.current
+        // Subtract 15 minutes from the event time
+        guard let notificationDate = calendar.date(byAdding: .minute, value: -15, to: date) else {
+            print("Error calculating notification time")
+            return
+        }
+        
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        
+        let request = UNNotificationRequest(
+            identifier: UUID().uuidString,
+            content: content,
+            trigger: trigger
+        )
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error)")
+            } else {
+                print("Notification scheduled for \(notificationDate)")
+            }
+        }
+    }
 
 }
