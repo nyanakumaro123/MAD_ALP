@@ -12,6 +12,7 @@ struct DetailScheduleView: View {
     
     var schedule: Schedule
     @State private var showEdit = false
+    @State private var showDetail = false
     
     var body: some View {
         NavigationStack {
@@ -52,6 +53,7 @@ struct DetailScheduleView: View {
                     ForEach(schedule.exercises) { exercise in
                         // Exercise card
                         ExerciseCardView(exercise: exercise)
+                        
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
