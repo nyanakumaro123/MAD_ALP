@@ -12,6 +12,7 @@ import SwiftData
 
 final class MAD_ALPTests: XCTestCase {
     var ScheduleViewModel: ScheduleViewModel!
+    var TemplateViewModel: TemplateViewModel!
     
     var context: ModelContext!
 
@@ -21,12 +22,14 @@ final class MAD_ALPTests: XCTestCase {
         context = ModelContext(container)
         
         ScheduleViewModel = MAD_ALP.ScheduleViewModel()
+        TemplateViewModel = MAD_ALP.TemplateViewModel()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
+    // Schedule
     func testAddSchedule() throws {
         ScheduleViewModel.addSchedule(
             title: "Test",
@@ -73,6 +76,14 @@ final class MAD_ALPTests: XCTestCase {
             print("Existing schedule deleted successfully.")
         }
     }
+    // Schedule
+    
+    // Template
+    func testFetchTemplate() {
+        let result = TemplateViewModel.fetchTemplate()
+        XCTAssertTrue(result, "templates are empty.")
+    }
+    // Template
 
     func testExample() throws {
         // This is an example of a functional test case.

@@ -17,7 +17,7 @@ struct TemplateExerciseView: View {
                 .fontWeight(.bold)
                 .padding(.bottom, 28)
             
-            if (templateViewModel.templates.isEmpty) {
+            if (templateViewModel.fetchTemplate() == false) {
                 VStack {
                     Spacer()
                     Text("No template available")

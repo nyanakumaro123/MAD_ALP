@@ -46,6 +46,7 @@ class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
     
+    // Add
     func addSchedule(title: String, date: Date, time: Date, exercises: [Exercise], context: ModelContext) {
         let newSchedule = Schedule(
             title: title,
@@ -58,6 +59,7 @@ class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
         try? context.save()
     }
     
+    // Update
     func updateSchedule(id: UUID, newTitle: String, newDate: Date, newTime: Date, newExercises: [Exercise], context: ModelContext) {
         let fetchDescriptor = FetchDescriptor<Schedule>(
             predicate: #Predicate { $0.id == id }
@@ -83,7 +85,7 @@ class ScheduleViewModel: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
 
-    
+    // Delete
     func deleteSchedule(withID id: UUID, in context: ModelContext) {
         let fetchDescriptor = FetchDescriptor<Schedule>(
             predicate: #Predicate { schedule in

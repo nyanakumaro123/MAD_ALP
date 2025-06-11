@@ -86,13 +86,6 @@ struct HomeView: View {
                             }
                             .padding()
                         }
-//                        .onDelete { indexSet in
-//                            scheduleViewModel.deleteSchedules(
-//                                from: filteredSchedules,
-//                                at: indexSet,
-//                                in: modelContext
-//                            )
-//                        }
                     }
                     
                     Spacer()
