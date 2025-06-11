@@ -27,7 +27,7 @@ struct DetailScheduleView: View {
                                 .padding(.bottom, 8)
                                 
                             // Time
-                            Text("Time: \(schedule.date, style: .time)")
+                            Text("Time: \(schedule.time, style: .time)")
                                 .font(.system(size: 24, weight: .bold, design: .rounded))
                         }
                         Spacer()

@@ -72,7 +72,6 @@ class TemplateViewModel: NSObject, ObservableObject, WCSessionDelegate {
             // dips, bench press, dumbell rows
            Template(title: "Upper Body Strength", descriptions: "Great for building chest, shoulders, and arms.", exercises: [allEx[5], allEx[6], allEx[4]])
         ]
-
         
         templates = baseTemplates
         

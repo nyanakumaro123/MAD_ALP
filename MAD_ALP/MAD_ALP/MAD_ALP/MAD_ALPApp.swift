@@ -23,4 +23,5 @@ struct MAD_ALPApp: App {
                 .environmentObject(templateViewModel)
         }
     }
+    
 }
